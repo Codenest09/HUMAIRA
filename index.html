@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Humaira ❤️ — My Bangaram</title>
+  <meta name="description" content="A cinematic birthday tribute for Humaira — My Bangaram, My Best Friend, My Forever ❤️">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Great+Vibes&family=Montserrat:wght@200;300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@200;300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Persistent particle canvas -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Floating background ambient orbs -->
+  <div class="ambient-orb orb-1"></div>
+  <div class="ambient-orb orb-2"></div>
+  <div class="ambient-orb orb-3"></div>
+
+  <!-- SVG defs for heart clip paths -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <clipPath id="heart-clip" clipPathUnits="objectBoundingBox">
+        <path d="M0.5,0.92 C0.5,0.92,0.02,0.62,0.02,0.33 C0.02,0.13,0.18,0,0.35,0 C0.43,0,0.48,0.04,0.5,0.09 C0.52,0.04,0.57,0,0.65,0 C0.82,0,0.98,0.13,0.98,0.33 C0.98,0.62,0.5,0.92,0.5,0.92Z"/>
+      </clipPath>
+    </defs>
+  </svg>
+
+  <!-- ═══════════════ SECTION 1: HERO / OPENING ═══════════════ -->
+  <section id="hero" class="section hero-section">
+    <div class="hero-balloon-field" id="balloon-field">
+      <!-- JS will spawn floating balloons here -->
+    </div>
+    <div class="hero-content reveal">
+      <p class="hero-whisper">Someone Special Was Born... ❤️</p>
+      <h1 class="hero-date">17 JULY 2006 <span class="sparkle">✨</span></h1>
+      <p class="hero-subtitle">The Day My Bangaram Entered This World... 🥹❤️</p>
+      <div class="scroll-hint">
+        <span>Scroll Down</span>
+        <div class="scroll-arrow"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ SECTION 2: NAME REVEAL ═══════════════ -->
+  <section id="name-reveal" class="section name-section">
+    <div class="name-content reveal">
+      <div class="heart-outline-wrap">
+        <svg viewBox="0 0 100 90" class="svg-heart-outline">
+          <path class="heart-draw-path" d="M50,85 C50,85 2,55 2,28 C2,10 18,-2 35,5 C43,8 48,15 50,20 C52,15 57,8 65,5 C82,-2 98,10 98,28 C98,55 50,85 50,85Z"/>
+        </svg>
+        <div class="name-inner">
+          <h1 class="name-humaira">H U M A I R A <span>❤️</span></h1>
+          <h2 class="name-bangaram">My Bangaram 🥹❤️</h2>
+        </div>
+      </div>
+      <div class="name-tags">
+        <span class="tag reveal-delay-1">My Best Friend 🫂</span>
+        <span class="tag reveal-delay-2">My Favourite Person ♾️</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ SECTION 3: PRECIOUS MEMORIES GALLERY ═══════════════ -->
+  <section id="memories" class="section memories-section">
+    <!-- Floating sparkles background -->
+    <div class="mem-sparkles">
+      <span class="mem-sparkle" style="--sx:10%;--sy:20%;--sd:3s;--sdl:0s">✦</span>
+      <span class="mem-sparkle" style="--sx:85%;--sy:15%;--sd:4s;--sdl:0.5s">✧</span>
+      <span class="mem-sparkle" style="--sx:70%;--sy:70%;--sd:3.5s;--sdl:1s">✦</span>
+      <span class="mem-sparkle" style="--sx:15%;--sy:65%;--sd:5s;--sdl:1.5s">✧</span>
+      <span class="mem-sparkle" style="--sx:50%;--sy:10%;--sd:4.5s;--sdl:0.8s">✦</span>
+      <span class="mem-sparkle" style="--sx:30%;--sy:80%;--sd:3.8s;--sdl:2s">✧</span>
+      <span class="mem-sparkle" style="--sx:90%;--sy:50%;--sd:4.2s;--sdl:0.3s">✦</span>
+    </div>
+
+    <div class="mem-header reveal">
+      <div class="mem-header-ornament">✿</div>
+      <h2 class="mem-title">Our Precious Memories</h2>
+      <p class="mem-subtitle">Every photo holds a moment that means the world to me ❤️</p>
+      <div class="mem-header-line"></div>
+    </div>
+
+    <div class="mem-gallery">
+      <!-- Card 1 -->
+      <div class="mem-card reveal" data-tilt>
+        <div class="mem-card-inner">
+          <div class="mem-tape mem-tape-left"></div>
+          <div class="mem-tape mem-tape-right"></div>
+          <div class="mem-photo-frame">
+            <img src="1.jpeg" alt="Humaira — My Bangaram" loading="lazy">
+            <div class="mem-photo-shine"></div>
+          </div>
+          <div class="mem-card-footer">
+            <p class="mem-caption">My Bangaram ❤️</p>
+            <p class="mem-date-tag">Forever & Always</p>
+          </div>
+          <div class="mem-corner-heart mem-ch-tl">💖</div>
+          <div class="mem-corner-heart mem-ch-br">💖</div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="mem-card reveal" data-tilt>
+        <div class="mem-card-inner">
+          <div class="mem-tape mem-tape-center"></div>
+          <div class="mem-photo-frame">
+            <img src="2.jpeg" alt="Humaira — Her Smile" loading="lazy">
+            <div class="mem-photo-shine"></div>
+          </div>
+          <div class="mem-card-footer">
+            <p class="mem-caption">Her Smile 🥹</p>
+            <p class="mem-date-tag">My Favourite View</p>
+          </div>
+          <div class="mem-sticker mem-sticker-star">⭐</div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="mem-card reveal" data-tilt>
+        <div class="mem-card-inner">
+          <div class="mem-tape mem-tape-left"></div>
+          <div class="mem-photo-frame">
+            <img src="3.jpeg" alt="Humaira — My Favourite Human" loading="lazy">
+            <div class="mem-photo-shine"></div>
+          </div>
+          <div class="mem-card-footer">
+            <p class="mem-caption">My Favourite Human 🫶🏻</p>
+            <p class="mem-date-tag">The Most Beautiful Soul</p>
+          </div>
+          <div class="mem-corner-heart mem-ch-tr">💗</div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="mem-card reveal" data-tilt>
+        <div class="mem-card-inner">
+          <div class="mem-tape mem-tape-right"></div>
+          <div class="mem-photo-frame">
+            <img src="4.jpeg" alt="Humaira — My Safe Place" loading="lazy">
+            <div class="mem-photo-shine"></div>
+          </div>
+          <div class="mem-card-footer">
+            <p class="mem-caption">My Safe Place 🫂</p>
+            <p class="mem-date-tag">Where I Belong</p>
+          </div>
+          <div class="mem-sticker mem-sticker-heart">💕</div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="mem-card reveal" data-tilt>
+        <div class="mem-card-inner">
+          <div class="mem-tape mem-tape-center"></div>
+          <div class="mem-photo-frame">
+            <img src="5.jpeg" alt="Humaira — My Forever Bestie" loading="lazy">
+            <div class="mem-photo-shine"></div>
+          </div>
+          <div class="mem-card-footer">
+            <p class="mem-caption">My Forever Bestie ♾️</p>
+            <p class="mem-date-tag">Till The End Of Time</p>
+          </div>
+          <div class="mem-corner-heart mem-ch-tl">🫶🏻</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom quote -->
+    <div class="mem-bottom-quote reveal">
+      <p>Every moment with you is a memory I treasure forever ❤️</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════ SECTION 4: BALLOON MEMORY WALL ═══════════════ -->
+  <section id="memory-wall" class="section wall-section">
+    <div class="wall-text-flow">
+      <div class="wall-line reveal">Every Picture...</div>
+      <div class="wall-line reveal">Has A Memory ❤️</div>
+      <div class="wall-line reveal">Every Memory...</div>
+      <div class="wall-line reveal">Has YOU 🥹</div>
+      <div class="wall-line reveal">And Every You...</div>
+      <div class="wall-line reveal">Has A Special Place In My Heart ❤️</div>
+    </div>
+    <div class="balloon-memory-strip" id="memory-strip">
+      <!-- JS builds balloon+photo combos -->
+    </div>
+  </section>
+
+  </section>
+
+  <!-- ═══════════════ SECTION 4.5: FRIENDSHIP ALBUM SLIDER ═══════════════ -->
+  <section id="playlist" class="section playlist-section">
+    <div class="playlist-ambient-glow"></div>
+    
+    <div class="playlist-header reveal">
+      <div class="playlist-header-icon">📖</div>
+      <h2 class="playlist-title">Pages of Our Story</h2>
+      <p class="playlist-subtitle">Tap each memory polaroid to read its beautiful backstory... ✍🏻💖</p>
+      <div class="playlist-header-line"></div>
+    </div>
+    
+    <div class="playlist-container reveal">
+      <!-- Left side: Interactive polaroid slider strip -->
+      <div class="filmstrip-column">
+        <div class="filmstrip-slider">
+          <div class="film-card active" data-track="0">
+            <div class="film-tape"></div>
+            <div class="film-frame"><img src="1.jpeg" alt="Memory 1"></div>
+            <p class="film-label">Hello ❤️</p>
+          </div>
+          <div class="film-card" data-track="1">
+            <div class="film-tape"></div>
+            <div class="film-frame"><img src="2.jpeg" alt="Memory 2"></div>
+            <p class="film-label">Midnight 📞</p>
+          </div>
+          <div class="film-card" data-track="2">
+            <div class="film-frame"><img src="3.jpeg" alt="Memory 3"></div>
+            <p class="film-label">My Safe Place 🫂</p>
+          </div>
+          <div class="film-card" data-track="3">
+            <div class="film-tape"></div>
+            <div class="film-frame"><img src="4.jpeg" alt="Memory 4"></div>
+            <p class="film-label">Forever ♾️</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Right side: Beautiful Antique Notebook Story Page -->
+      <div class="playlist-card">
+        <div class="notebook-clip">📎</div>
+        <div class="playlist-story" id="playlist-story">
+          <h3 class="story-title" id="story-title">The Unexpected Hello</h3>
+          <div class="story-divider"></div>
+          <p class="story-desc" id="story-desc">We started as strangers, not knowing how close we would get. That first text message was the start of the most beautiful friendship in my life. 🥹❤️</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ SECTION 5: MY BANGARAM MOMENT ═══════════════ -->
+  <section id="bangaram" class="section bangaram-section">
+    <div class="bangaram-wrapper reveal">
+      <div class="heartbeat-container">
+        <div class="hb-ring hb-ring-1"></div>
+        <div class="hb-ring hb-ring-2"></div>
+        <div class="hb-ring hb-ring-3"></div>
+        <div class="bangaram-photo-heart">
+          <img src="6.jpeg" alt="Humaira — My Bangaram">
+        </div>
+      </div>
+      <div class="bangaram-message">
+        <h2>Humaira... ❤️</h2>
+        <p class="reveal">You may be my BEST FRIEND to the world...</p>
+        <p class="reveal">But to me...</p>
+        <p class="bangaram-big reveal">You are my BANGARAM 🥹❤️</p>
+        <div class="bangaram-pearls">
+          <span class="reveal">My Precious Person 💎</span>
+          <span class="reveal">My Happiness 🫂</span>
+          <span class="reveal">My Forever Favourite Human ♾️❤️</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ SECTION 5.5: THE JAR OF SWEET NOTES ═══════════════ -->
+  <section id="message-jar" class="section jar-section">
+    <!-- Ambient glowing bubbles -->
+    <div class="jar-ambient-glow"></div>
+    
+    <div class="jar-header reveal">
+      <div class="jar-header-icon">🍯</div>
+      <h2 class="jar-title">Jar of Sweet Notes</h2>
+      <p class="jar-subtitle">Tap the jar to hear a voice note and draw a little card, Bujji... 🥹❤️</p>
+      <div class="jar-header-line"></div>
+    </div>
+    
+    <div class="jar-container reveal">
+      <!-- Glass Jar Container -->
+      <div class="jar-wrapper" id="glass-jar" title="Click to draw a note!">
+        <div class="jar-lid"></div>
+        <div class="jar-neck">
+          <div class="jar-string"></div>
+          <div class="jar-tag">Click Me 🥹</div>
+        </div>
+        <div class="jar-body">
+          <div class="jar-label">
+            <span>Notes for</span>
+            <span class="label-heart">❤️</span>
+            <span>Humaira</span>
+          </div>
+          <!-- Small paper scrolls floating inside -->
+          <div class="jar-scrolls">
+            <span class="jar-scroll s-1" style="--rx:-15deg;--ry:20px;--c:#f8a5c2"></span>
+            <span class="jar-scroll s-2" style="--rx:10deg;--ry:-10px;--c:#ffe7a0"></span>
+            <span class="jar-scroll s-3" style="--rx:25deg;--ry:35px;--c:#ff7b96"></span>
+            <span class="jar-scroll s-4" style="--rx:-30deg;--ry:-25px;--c:#ffe7a0"></span>
+            <span class="jar-scroll s-5" style="--rx:5deg;--ry:5px;--c:#f8a5c2"></span>
+            <span class="jar-scroll s-6" style="--rx:-20deg;--ry:40px;--c:#ff7b96"></span>
+            <span class="jar-scroll s-7" style="--rx:15deg;--ry:-30px;--c:#ffe7a0"></span>
+          </div>
+          <!-- Firefly glowing lights inside the jar -->
+          <div class="jar-lights">
+            <span class="j-light jl-1"></span>
+            <span class="j-light jl-2"></span>
+            <span class="j-light jl-3"></span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Target popup card styled as a torn scrap note -->
+      <div class="jar-note-popup" id="jar-note-popup">
+        <div class="popup-washi-tape"></div>
+        <div class="popup-inner">
+          <p class="popup-text" id="popup-text">Click the jar above to read a sweet message... ❤️</p>
+          <p class="popup-signature">— Your Bestie 🫂</p>
+          <button class="popup-close-btn" id="popup-close-btn">Put Back ✉️</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ SECTION 6: BIRTHDAY CELEBRATION ═══════════════ -->
+  <section id="birthday" class="section birthday-section">
+    <div class="bday-content reveal">
+      <div class="countdown-row">
+        <span class="cd-num">3 🎈</span>
+        <span class="cd-num">2 🎈</span>
+        <span class="cd-num">1 🎈</span>
+      </div>
+      <h1 class="bday-title">HAPPY BIRTHDAY<br>HUMAIRA ❤️🎂</h1>
+      <h2 class="bday-sub">HAPPY BIRTHDAY MY BANGARAM 🥹❤️</h2>
+      <p class="bday-date">17 • 07 • 2006 👑</p>
+
+      <!-- Live Countdown Timer -->
+      <div class="countdown-timer" id="countdown-timer">
+        <div class="ct-box">
+          <span class="ct-value" id="ct-days">00</span>
+          <span class="ct-label">Days</span>
+        </div>
+        <div class="ct-sep">:</div>
+        <div class="ct-box">
+          <span class="ct-value" id="ct-hours">00</span>
+          <span class="ct-label">Hours</span>
+        </div>
+        <div class="ct-sep">:</div>
+        <div class="ct-box">
+          <span class="ct-value" id="ct-mins">00</span>
+          <span class="ct-label">Minutes</span>
+        </div>
+        <div class="ct-sep">:</div>
+        <div class="ct-box">
+          <span class="ct-value" id="ct-secs">00</span>
+          <span class="ct-label">Seconds</span>
+        </div>
+      </div>
+      <p class="ct-message" id="ct-message"></p>
+
+      <!-- Blow the Candles Mini-Game -->
+      <div class="cake-wrapper" id="cake-game">
+        <!-- Flavor selection buttons -->
+        <div class="cake-flavors">
+          <button class="flavor-btn active" data-flavor="strawberry" aria-label="Strawberry Rose Flavor">🍓 Rose</button>
+          <button class="flavor-btn" data-flavor="caramel" aria-label="Golden Caramel Flavor">🍯 Caramel</button>
+          <button class="flavor-btn" data-flavor="chocolate" aria-label="Dark Chocolate Flavor">🍫 Choco</button>
+        </div>
+
+        <div class="blow-instruction" id="blow-instruction">
+          <span class="blow-icon">🕯️</span>
+          <span class="blow-text">Blow out the candles!</span>
+          <span class="blow-hint">Blow into your mic or tap the candles 🫶🏻</span>
+        </div>
+
+        <!-- Wish input box -->
+        <div class="cake-wish-box" id="cake-wish-box">
+          <input type="text" id="wish-input" placeholder="Type a wish for your birthday..." maxlength="60" autocomplete="off">
+          <button id="lock-wish-btn">Lock Wish ✨</button>
+        </div>
+
+        <div class="cake-container">
+          <div class="cake-topper-text">HUMAIRA ❤️</div>
+          <div class="cake-pedestal"></div>
+          <div class="cake-structure strawberry"> <!-- Default flavor: strawberry -->
+            <div class="candle-group" id="candle-group">
+              <div class="candle" data-candle="1">
+                <div class="flame" id="flame-1">
+                  <div class="flame-core"></div>
+                  <div class="flame-glow"></div>
+                </div>
+                <div class="smoke-puff" id="smoke-1"></div>
+              </div>
+              <div class="candle" data-candle="2">
+                <div class="flame f2" id="flame-2">
+                  <div class="flame-core"></div>
+                  <div class="flame-glow"></div>
+                </div>
+                <div class="smoke-puff" id="smoke-2"></div>
+              </div>
+              <div class="candle" data-candle="3">
+                <div class="flame f3" id="flame-3">
+                  <div class="flame-core"></div>
+                  <div class="flame-glow"></div>
+                </div>
+                <div class="smoke-puff" id="smoke-3"></div>
+              </div>
+            </div>
+            <!-- Beautiful toppings layers -->
+            <div class="frosting-layer">
+              <div class="drip-group">
+                <span class="drip drip-1"></span>
+                <span class="drip drip-2"></span>
+                <span class="drip drip-3"></span>
+                <span class="drip drip-4"></span>
+                <span class="drip drip-5"></span>
+              </div>
+            </div>
+            <div class="cake-tier tier-1">
+              <div class="cake-details">
+                <span class="sprinkle"></span>
+                <span class="sprinkle"></span>
+                <span class="sprinkle"></span>
+                <span class="sprinkle"></span>
+              </div>
+            </div>
+            <div class="cake-tier tier-2"></div>
+            <div class="cake-base"></div>
+          </div>
+        </div>
+
+        <!-- Custom blow meter visual with glowing ring or wave -->
+        <div class="blow-meter" id="blow-meter">
+          <div class="blow-meter-label">Blow Force</div>
+          <div class="blow-meter-track">
+            <div class="blow-meter-fill" id="blow-meter-fill"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- All Candles Blown celebration -->
+      <div class="bday-celebration" id="bday-celebration">
+        <div class="bday-celeb-content">
+          <div class="celeb-sparkles">✨</div>
+          <h2 class="celeb-title">🎉 Wish Made! 🎉</h2>
+          <p class="celeb-text">Happy Birthday, Humaira! 🥹❤️</p>
+          <p class="celeb-sub">Make a wish... and may it all come true 🕯️🫶🏻</p>
+          <div class="celeb-hearts">💖 💕 ❤️ 💗</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ SECTION 7: LOVE LETTER (Pinterest 2D Vector Style) ═══════════════ -->
+  <section id="letter" class="section letter-section">
+    <!-- Floating paper hearts (will be positioned by CSS/JS) -->
+    <div class="float-hearts-container" id="float-hearts-container">
+      <div class="float-heart fh-1" style="--hx: 15%; --hy: 20%; --hs: 1.8rem; --hd: 4s; --hdl: 0s;">❤️</div>
+      <div class="float-heart fh-2" style="--hx: 80%; --hy: 15%; --hs: 1.4rem; --hd: 5s; --hdl: 0.8s;">💖</div>
+      <div class="float-heart fh-3" style="--hx: 70%; --hy: 60%; --hs: 1rem; --hd: 3.5s; --hdl: 1.5s;">💕</div>
+      <div class="float-heart fh-4" style="--hx: 20%; --hy: 50%; --hs: 2.2rem; --hd: 6s; --hdl: 0.3s;">❤️</div>
+      <div class="float-heart fh-5" style="--hx: 50%; --hy: 10%; --hs: 0.9rem; --hd: 4.5s; --hdl: 2s;">💗</div>
+      <div class="float-heart fh-6" style="--hx: 25%; --hy: 75%; --hs: 1.6rem; --hd: 5.5s; --hdl: 1s;">💖</div>
+      <div class="float-heart fh-7" style="--hx: 85%; --hy: 35%; --hs: 1.2rem; --hd: 3.8s; --hdl: 0.5s;">❤️</div>
+      <div class="float-heart fh-8" style="--hx: 10%; --hy: 40%; --hs: 0.8rem; --hd: 4.2s; --hdl: 1.2s;">💕</div>
+    </div>
+    
+    <!-- Dark Backdrop Dimmer for letter focus -->
+    <div class="letter-overlay-dim" id="letter-overlay-dim"></div>
+
+    <div class="envelope-scene reveal" id="envelope-scene">
+      <div class="envelope-wrapper">
+        <!-- Envelope Back Panel -->
+        <div class="env-back-2d"></div>
+        
+        <!-- The Letter Card (styled as a booklet/card) -->
+        <div class="letter-card" id="letter-card" data-page="1">
+          <div class="card-paper">
+            
+            <!-- Page 1: Envelope Cover / Intro -->
+            <div class="card-page-content page-1 active">
+              <div class="card-header-lines">
+                <span class="card-line card-line-1"></span>
+                <span class="card-line card-line-2"></span>
+              </div>
+              <h3 class="card-title">To My Bangaram,</h3>
+              <h2 class="card-subtitle">Humaira ❤️</h2>
+              <div class="card-cover-art">
+                <div class="ornament">✨ ❀ ✨</div>
+                <p class="click-hint">Click "Open Letter" to read my heart... ✍🏻</p>
+              </div>
+              <div class="card-nav">
+                <button class="card-btn-next">Open Letter →</button>
+              </div>
+            </div>
+
+            <!-- Page 2: The Heartfelt Message -->
+            <div class="card-page-content page-2">
+              <div class="card-body scrollable-card-body">
+                <p class="card-ltr">My dear Bangaram ❤️</p>
+                <p class="card-ltr">Our friendship started so unexpectedly, but somehow you became very special to me. 🥹</p>
+                <p class="card-ltr">We had fights, misunderstandings, and moments where things didn't feel right… 💔</p>
+                <p class="card-ltr">But these past few days, especially this one week, brought us closer than I ever imagined. 🫂❤️</p>
+                <p class="card-ltr">Bujji 🥹, I don't know how you became so important to me in such a short time.</p>
+                <p class="card-ltr">My Bangaram ❤️, your smile, your words, and even your silly things have a special place in my heart. 🫶🏻</p>
+                <p class="card-ltr">Darling 😘, sometimes I may fight with you or irritate you, but I never want to lose our bond. 🥺</p>
+                <p class="card-ltr">This closeness we have now feels so beautiful and precious to me. ❤️🩹</p>
+                <p class="card-ltr">Bujji, I just want to see you happy, smiling, and always being your cute self. 🥹❤️</p>
+                <p class="card-ltr">No matter what happens, you'll always be my Bangaram and a very special person in my heart. ♾️🫂</p>
+                <p class="card-ltr">I love you so much, my darling Humaira ❤️🥹 Happy Birthday, my Bujji, my Bangaram! 🎂🫶🏻</p>
+              </div>
+              <div class="card-nav">
+                <button class="card-btn-back">← Back</button>
+                <button class="card-btn-next">Next →</button>
+              </div>
+            </div>
+
+            <!-- Page 3: Polaroid Memory & Signature -->
+            <div class="card-page-content page-3">
+              <div class="card-polaroid-section">
+                <div class="polaroid-frame" id="polaroid-frame">
+                  <div class="polaroid-inner">
+                    <div class="polaroid-front">
+                      <div class="polaroid-tape"></div>
+                      <img src="6.jpeg" alt="Humaira My Bangaram" class="polaroid-img">
+                      <p class="polaroid-caption">Hover to Flip 🥹</p>
+                    </div>
+                    <div class="polaroid-back">
+                      <p class="polaroid-secret-msg">To my forever safe place. You look so beautiful here... ❤️</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="card-footer">
+                <p class="card-footer-text">Happy Birthday, Bangaram 🫂❤️</p>
+                <p class="card-footer-ilo">I Love You, Humaira 🥹🫶🏻</p>
+              </div>
+              
+              <div class="card-nav">
+                <button class="card-btn-back">← Back</button>
+                <button class="card-btn-close">Close Letter ✉️</button>
+              </div>
+            </div>
+
+            <div class="card-corner-heart">💖</div>
+          </div>
+        </div>
+
+        <!-- Envelope Body (front pocket, in front of card) -->
+        <div class="env-body-2d" id="env-body-2d">
+          <div class="env-body-inner">
+            <div class="env-label">
+              <span>To My Bangaram</span>
+              <span class="env-label-heart">❤️</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Wax Seal -->
+        <div class="env-wax-seal" id="env-wax-seal" title="Click to break seal and open envelope">
+          <div class="seal-base">
+            <div class="seal-wax"></div>
+            <div class="seal-stamp">H</div>
+          </div>
+          <div class="seal-ripple"></div>
+        </div>
+        
+        <!-- Envelope Flap (folded flap at top) -->
+        <div class="env-flap-2d" id="env-flap-2d">
+          <div class="flap-shape"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ SECTION 8: PHOTO COLLAGE ═══════════════ -->
+  <section id="collage" class="section collage-section">
+    <div class="collage-container">
+      <div class="collage-grid-wrap reveal">
+        <div class="collage-glow-behind"></div>
+        <div class="collage-grid" id="collage-grid">
+          <!-- JS builds the heart mosaic -->
+        </div>
+      </div>
+      <div class="collage-card reveal">
+        <div class="collage-text">
+          <h1 class="collage-title">HUMAIRA ❤️</h1>
+          <p class="collage-tags">MY BANGARAM 🥹 • MY BEST FRIEND 🫂 • MY FOREVER ♾️</p>
+          <div class="collage-info">
+            <p class="collage-date">BORN ON 17 JULY 2006 🎂</p>
+            <p class="italic">MADE MY WORLD MORE BEAUTIFUL ❤️</p>
+            <h2 class="collage-wishes">HAPPY BIRTHDAY BANGARAM ❤️🎂</h2>
+            <p class="love-line">I LOVE YOU, HUMUUU 🥹🫶🏻</p>
+            <p class="forever-line">FOREVER & ALWAYS ♾️❤️</p>
+          </div>
+        </div>
+        <div class="collage-card-heart tl">💖</div>
+        <div class="collage-card-heart br">💖</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ SECTION 9: OUTRO ═══════════════ -->
+  <section id="outro" class="section outro-section">
+    <div class="moon"></div>
+    <div class="outro-balloon" id="outro-balloon">
+      <div class="ob-heart">❤️</div>
+      <div class="ob-label">MY BANGARAM ❤️</div>
+      <div class="ob-string"></div>
+    </div>
+    <div class="outro-final-text reveal">
+      <p class="of-date">17.07.2006 ❤️</p>
+      <p class="of-quote">A BEAUTIFUL SOUL WAS BORN.</p>
+      <h1 class="of-name">HUMAIRA ❤️</h1>
+    </div>
+  </section>
+
+  <!-- Background music toggle -->
+  <button id="music-toggle" class="music-fab" aria-label="Toggle Music">
+    <span class="music-icon">🎵</span>
+  </button>
+
+  <script src="app.js"></script>
+</body>
+</html>
