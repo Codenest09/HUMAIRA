@@ -300,10 +300,6 @@
     };
 
     enterBtn.addEventListener('click', startTribute);
-    enterBtn.addEventListener('touchstart', (e) => {
-      e.preventDefault();
-      startTribute();
-    }, { passive: false });
   }
   initIntroOverlay();
 
@@ -660,19 +656,11 @@
     // Attach click handlers
     document.querySelectorAll('.candle').forEach((el, i) => {
       el.addEventListener('click', () => onCandleClick(i));
-      el.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        onCandleClick(i);
-      }, { passive: false });
     });
 
     // ─── Click instruction to activate mic ───
     if (instruction) {
       instruction.addEventListener('click', toggleMic);
-      instruction.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        toggleMic();
-      }, { passive: false });
     }
 
     // ─── Microphone Setup ───
@@ -883,22 +871,13 @@
       }, 600);
     }
 
-    // Bind wax seal with both click and touch
+    // Bind wax seal with click
     seal.addEventListener('click', openEnvelope);
-    seal.addEventListener('touchstart', (e) => {
-      e.preventDefault();
-      openEnvelope();
-    }, { passive: false });
 
     // Also allow tapping the envelope body to open on mobile
-    if (isMobile) {
-      const envBody = document.getElementById('env-body-2d');
-      if (envBody) {
-        envBody.addEventListener('touchstart', (e) => {
-          e.preventDefault();
-          openEnvelope();
-        }, { passive: false });
-      }
+    const envBody = document.getElementById('env-body-2d');
+    if (envBody) {
+      envBody.addEventListener('click', openEnvelope);
     }
 
     // Page turn navigation
@@ -1029,8 +1008,8 @@
     const closeBtn = document.getElementById('popup-close-btn');
     if (!jar || !popup || !popupText || !closeBtn) return;
 
-    // Load the WhatsApp voice note record
-    const voiceAudio = new Audio("WhatsApp Audio 2026-07-15 at 9.34.21 PM.mp4");
+    // Get the WhatsApp voice note record element
+    const voiceAudio = document.getElementById('voice-audio-element');
 
     const messages = [
       "You are the most precious person in my life, my true Bangaram. 💎❤️",
