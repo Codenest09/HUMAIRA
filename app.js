@@ -272,38 +272,40 @@
   }
   buildCollage();
 
-  // ─── AMBIENT MUSIC (Background Audio Autoplay) ───
+  // ─── AMBIENT MUSIC & INTRO OVERLAY ───
   let musicPlaying = false;
 
-  function startAutoplay() {
-    const tryPlay = () => {
+  function initIntroOverlay() {
+    const overlay = document.getElementById('intro-overlay');
+    const enterBtn = document.getElementById('enter-btn');
+    if (!overlay || !enterBtn) return;
+
+    const startTribute = () => {
+      // Play background music
       bgMusic.play()
         .then(() => {
           musicPlaying = true;
-          removeListeners();
         })
         .catch(err => {
-          console.log("Autoplay check: Waiting for real user gesture (click/tap/press)...", err);
+          console.log("Audio play failed. Place 'Na Roja Nuvve.mp3' in your project root!", err);
         });
+
+      // Smooth fade out
+      overlay.classList.add('fade-out');
+
+      // Remove overlay element from DOM after transition finishes
+      setTimeout(() => {
+        overlay.remove();
+      }, 1200);
     };
 
-    const removeListeners = () => {
-      window.removeEventListener('click', tryPlay);
-      window.removeEventListener('touchstart', tryPlay);
-      window.removeEventListener('keydown', tryPlay);
-      window.removeEventListener('mousedown', tryPlay);
-    };
-
-    // Try immediately
-    tryPlay();
-
-    // Set up robust gesture listeners (note: scroll/wheel are not valid play gestures in Chrome)
-    window.addEventListener('click', tryPlay);
-    window.addEventListener('touchstart', tryPlay, { passive: true });
-    window.addEventListener('keydown', tryPlay, { passive: true });
-    window.addEventListener('mousedown', tryPlay, { passive: true });
+    enterBtn.addEventListener('click', startTribute);
+    enterBtn.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      startTribute();
+    }, { passive: false });
   }
-  startAutoplay();
+  initIntroOverlay();
 
   // ─── BIRTHDAY COUNTDOWN TIMER ───
   function startCountdown() {

@@ -3693,3 +3693,84 @@ html, body {
   max-width: 100vw;
   overflow-x: hidden;
 }
+
+/* ═══════════════════════════════════════════════════════════
+   CINEMATIC INTRO OVERLAY
+   ═══════════════════════════════════════════════════════════ */
+#intro-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(circle at 50% 30%, #15001a, #080010);
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), visibility 1.2s;
+}
+#intro-overlay.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.intro-card {
+  text-align: center;
+  padding: 40px 30px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+  border: 1px solid rgba(245, 197, 66, 0.25);
+  border-radius: 24px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), var(--glow-gold);
+  max-width: 400px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  animation: introPulse 3s ease-in-out infinite alternate;
+}
+@keyframes introPulse {
+  0% { box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 15px rgba(245, 197, 66, 0.2); }
+  100% { box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(245, 197, 66, 0.5); }
+}
+.intro-whisper {
+  font-family: var(--font-script);
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  color: var(--blush);
+  text-shadow: var(--glow-pink);
+}
+.intro-heart {
+  font-size: 3.5rem;
+  animation: heartbeat 1.4s ease-in-out infinite;
+  filter: drop-shadow(0 0 15px rgba(231, 76, 94, 0.5));
+}
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.15); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.1); }
+}
+#enter-btn {
+  padding: 12px 36px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: bold;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--dark);
+  background: linear-gradient(135deg, var(--gold), #c9a020);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: var(--glow-gold);
+  transition: all 0.3s ease;
+}
+#enter-btn:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+#enter-btn:active {
+  transform: scale(0.98);
+}
+
