@@ -667,33 +667,8 @@ body {
   -webkit-backdrop-filter: blur(10px);
 }
 
-/* ── Responsive ── */
-@media (max-width: 768px) {
-  .mem-gallery {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-  .mem-card-featured {
-    grid-column: span 2;
-    grid-row: span 1;
-  }
-  .mem-card-featured .mem-photo-frame {
-    aspect-ratio: 4 / 3;
-  }
-}
-@media (max-width: 480px) {
-  .mem-gallery {
-    grid-template-columns: 1fr;
-    gap: 24px;
-    max-width: 320px;
-  }
-  .mem-card-featured {
-    grid-column: span 1;
-  }
-  .mem-card-featured .mem-photo-frame {
-    aspect-ratio: 3 / 4;
-  }
-}
+/* ── Memory Responsive (corrected for flex layout) ── */
+/* Responsive rules consolidated in the mobile section at bottom of file */
 
 /* ══════════════════════════════════════════
    SECTION 4 — BALLOON MEMORY WALL
@@ -2701,48 +2676,6 @@ body {
   letter-spacing: 12px;
 }
 
-/* ─── MUSIC FAB ─── */
-.music-fab {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  width: 56px; height: 56px;
-  border-radius: 50%;
-  border: 2px solid rgba(245,197,66,0.3);
-  background: rgba(10,0,8,0.8);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  cursor: pointer;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-}
-.music-fab:hover {
-  border-color: var(--gold);
-  transform: scale(1.1);
-  box-shadow: 0 0 30px rgba(245,197,66,0.2);
-}
-.music-fab .music-icon {
-  font-size: 1.5rem;
-  animation: musicBounce 2s ease-in-out infinite;
-}
-.music-fab.playing .music-icon {
-  animation: musicBounce 0.6s ease-in-out infinite;
-}
-.music-fab.muted .music-icon::after {
-  content: '\2715';
-  font-size: 0.7rem;
-  position: absolute;
-  color: var(--rose);
-  margin-left: 2px;
-}
-@keyframes musicBounce {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
-}
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 600px) {
@@ -3341,5 +3274,422 @@ body {
   }
 }
 
+/* ═══════════════════════════════════════════════════════════
+   COMPREHENSIVE MOBILE RESPONSIVENESS
+   All animations & interactions fully preserved
+   Layout gracefully adapted for every screen size
+   ═══════════════════════════════════════════════════════════ */
 
+/* ── Touch Devices: Disable hover-only effects that break on touch ── */
+@media (hover: none) and (pointer: coarse) {
+  /* Gallery dim-on-hover causes sticky dim on touch — disable */
+  .mem-gallery:hover .mem-card:not(:hover) {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: rotate(var(--card-rot, 0deg)) translateY(var(--card-y, 0px)) !important;
+  }
 
+  /* Disable individual card hover scale on touch */
+  .mem-card:hover {
+    transform: none !important;
+    z-index: auto;
+  }
+  .mem-card:hover .mem-card-inner {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border-color: rgba(255, 255, 255, 0.09);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  .mem-card:hover .mem-photo-frame img {
+    transform: none;
+    filter: saturate(0.95) contrast(1.02);
+  }
+  .mem-card:hover .mem-caption { color: var(--cream); text-shadow: 0 0 10px rgba(248,165,194,0.3); }
+  .mem-card:hover .mem-date-tag { color: rgba(248,165,194,0.5); }
+  .mem-card:hover .mem-corner-heart { opacity: 0.7; transform: none; }
+  .mem-card:hover .mem-sticker { opacity: 0.7; }
+
+  /* Collage polaroid hover scale too aggressive on touch */
+  .collage-polaroid:hover {
+    transform: rotate(var(--r, 0deg)) translateY(var(--y, 0px)) !important;
+    z-index: auto;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.45);
+    border-color: rgba(255, 255, 255, 0.09);
+  }
+  .collage-polaroid:hover .cp-frame img {
+    transform: none;
+  }
+
+  /* Film card hover reset */
+  .film-card:hover {
+    transform: rotate(var(--rot, 0deg)) !important;
+    z-index: auto;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    border-color: rgba(255, 255, 255, 0.09);
+  }
+
+  /* Countdown box hover disabled */
+  .ct-box:hover {
+    transform: none;
+    border-color: rgba(245, 197, 66, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+
+  /* Flavor button hover fix */
+  .flavor-btn:hover {
+    transform: none;
+  }
+
+  /* Envelope tilt disabled for touch */
+  .envelope-wrapper {
+    transform: none !important;
+  }
+
+  /* Collage card hover disabled */
+  .collage-card:hover {
+    transform: none;
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  /* Jar hover fix */
+  .jar-wrapper:hover {
+    transform: none;
+  }
+
+  /* Music fab hover fix */
+  .music-fab:hover {
+    transform: none;
+    border-color: rgba(245,197,66,0.3);
+  }
+}
+
+/* ── Tablets & Large Phones (max 768px) ── */
+@media (max-width: 768px) {
+  /* Ambient orbs — shrink to prevent horizontal overflow */
+  .orb-1 { width: 350px; height: 350px; top: -100px; left: -100px; }
+  .orb-2 { width: 300px; height: 300px; }
+  .orb-3 { width: 250px; height: 250px; }
+
+  /* Sections */
+  .section { padding: 70px 18px; }
+
+  /* Hero */
+  .hero-date { letter-spacing: 4px; }
+  .hero-whisper { margin-bottom: 18px; }
+  .hero-subtitle { margin-bottom: 35px; }
+
+  /* Name Reveal */
+  .heart-outline-wrap { padding: 35px; }
+  .name-humaira { letter-spacing: 6px; }
+
+  /* Memory Gallery — 2 columns */
+  .mem-gallery {
+    gap: 22px;
+    max-width: 600px;
+  }
+  .mem-card {
+    flex: 0 1 calc(50% - 22px);
+  }
+  /* Remove scattered rotations on tablet for cleaner layout */
+  .mem-gallery .mem-card:nth-child(1),
+  .mem-gallery .mem-card:nth-child(2),
+  .mem-gallery .mem-card:nth-child(3),
+  .mem-gallery .mem-card:nth-child(4),
+  .mem-gallery .mem-card:nth-child(5) {
+    transform: rotate(0deg) translateY(0);
+  }
+  .mem-bottom-quote { margin-top: 35px; }
+  .mem-bottom-quote p { padding: 14px 24px; }
+
+  /* Balloon Memory Wall */
+  .balloon-memory-strip { gap: 28px; }
+  .wall-section { min-height: auto; }
+
+  /* Bangaram */
+  .bangaram-wrapper { gap: 30px; }
+  .heartbeat-container { width: 170px; height: 170px; }
+  .bangaram-photo-heart { width: 130px; height: 130px; }
+
+  /* Birthday Countdown */
+  .countdown-timer { gap: 8px; }
+  .ct-box { padding: 14px 14px; min-width: 65px; border-radius: 12px; }
+
+  /* Cake Flavors */
+  .cake-flavors { flex-wrap: wrap; gap: 8px; }
+  .flavor-btn { padding: 6px 12px; font-size: 0.75rem; }
+
+  /* Jar */
+  .jar-wrapper { width: 150px; height: 200px; }
+  .jar-lid { width: 80px; height: 16px; }
+  .jar-lid::after { width: 66px; height: 5px; }
+  .jar-neck { width: 66px; height: 16px; }
+
+  /* Envelope */
+  .envelope-wrapper { width: min(360px, 92vw); min-height: 300px; }
+  .env-back-2d, .env-body-2d { height: 200px; }
+  .env-flap-2d { height: 120px; top: 100px; }
+  .card-paper { padding: 20px 16px; min-height: 260px; }
+  .scrollable-card-body { max-height: 160px; }
+
+  /* Collage */
+  .collage-grid { gap: 14px; max-width: 400px; }
+  .collage-polaroid { flex: 0 1 100px; padding: 6px 6px 14px 6px; }
+  .collage-card { padding: 30px 24px; }
+
+  /* Playlist / Album */
+  .filmstrip-column { flex: 0 1 auto; width: 100%; max-width: 340px; }
+  .filmstrip-slider { gap: 14px; }
+  .playlist-card { max-width: 500px; padding: 35px 24px 28px 24px; }
+
+  /* Outro */
+  .outro-section { min-height: 80vh; }
+  .of-name { letter-spacing: 8px; }
+
+  /* Music FAB */
+  .music-fab { width: 48px; height: 48px; bottom: 16px; right: 16px; }
+  .music-fab .music-icon { font-size: 1.3rem; }
+
+  /* Celebration Overlay */
+  .bday-celeb-content { padding: 35px 24px; width: 92%; }
+}
+
+/* ── Small Phones (max 480px) ── */
+@media (max-width: 480px) {
+  /* Ambient orbs — further shrink */
+  .orb-1 { width: 250px; height: 250px; top: -80px; left: -80px; }
+  .orb-2 { width: 200px; height: 200px; }
+  .orb-3 { width: 180px; height: 180px; }
+
+  /* Sections */
+  .section { padding: 50px 14px; }
+
+  /* Hero */
+  .hero-content { padding: 0 8px; }
+  .hero-date { letter-spacing: 3px; }
+  .hero-subtitle { margin-bottom: 28px; }
+
+  /* Name Reveal */
+  .heart-outline-wrap { padding: 22px; }
+  .name-humaira { letter-spacing: 4px; }
+  .name-tags { margin-top: 18px; gap: 8px; }
+
+  /* Memory Gallery — single column */
+  .mem-gallery {
+    gap: 26px;
+    max-width: 300px;
+    padding: 0 8px;
+  }
+  .mem-card { flex: 0 1 100%; }
+  .mem-header { margin-bottom: 35px; }
+  .memories-section { padding-top: 65px; padding-bottom: 65px; }
+  .mem-caption { font-size: 1.3rem; }
+  .mem-card-inner { padding: 12px 12px 16px 12px; }
+
+  /* Balloon Memory Wall */
+  .balloon-memory-strip { gap: 18px; padding: 10px; }
+  .mb-top { width: 42px; height: 52px; }
+  .mb-photo { width: 50px; height: 50px; }
+  .mb-ribbon { height: 28px; }
+  .wall-text-flow { gap: 14px; margin-bottom: 35px; }
+  .wall-section { min-height: auto; padding-top: 55px; }
+
+  /* Bangaram */
+  .bangaram-wrapper { gap: 22px; }
+  .heartbeat-container { width: 140px; height: 140px; }
+  .bangaram-photo-heart { width: 110px; height: 110px; }
+  .bangaram-message { max-width: 100%; padding: 0 8px; }
+  .bangaram-pearls { gap: 8px; margin-top: 18px; }
+
+  /* Birthday Section */
+  .birthday-section { padding: 60px 14px; }
+  .countdown-row { gap: 12px; margin-bottom: 22px; }
+  .countdown-timer { gap: 5px; }
+  .ct-box { padding: 12px 10px; min-width: 56px; border-radius: 10px; }
+  .ct-value { font-size: clamp(1.5rem, 5vw, 2.2rem); }
+  .ct-label { font-size: 0.52rem; letter-spacing: 2px; margin-top: 6px; }
+  .ct-sep { font-size: clamp(1rem, 3vw, 1.4rem); padding-bottom: 10px; }
+  .ct-message { margin-bottom: 14px; }
+
+  /* Cake */
+  .cake-flavors { gap: 6px; }
+  .flavor-btn { padding: 5px 10px; font-size: 0.7rem; }
+  .cake-wish-box {
+    flex-direction: column;
+    align-items: stretch;
+    width: min(300px, 88vw);
+  }
+  .cake-wish-box input { font-size: 0.8rem; }
+  .cake-wish-box button { align-self: center; width: fit-content; }
+  .blow-instruction { padding: 10px 18px; }
+  .blow-hint { font-size: 0.56rem; text-align: center; }
+  .blow-text { font-size: 0.72rem; }
+  .cake-topper-text { font-size: 1.1rem; }
+  .candle-group { gap: 16px; }
+
+  /* Jar Section */
+  .jar-section { padding: 60px 14px; }
+  .jar-wrapper { width: 135px; height: 180px; }
+  .jar-lid { width: 70px; height: 14px; }
+  .jar-lid::after { width: 56px; height: 5px; }
+  .jar-neck { width: 56px; height: 14px; top: 14px; }
+  .jar-body { top: 27px; height: calc(100% - 27px); border-radius: 32px 32px 24px 24px; }
+  .jar-label { padding: 6px 10px; }
+  .jar-label span { font-size: 0.48rem; }
+  .jar-tag { font-size: 0.46rem; right: -18px; padding: 2px 5px; }
+  .jar-note-popup { width: min(300px, 88vw); padding: 28px 16px 18px 16px; }
+  .popup-text { font-size: clamp(0.88rem, 2.2vw, 1rem); line-height: 1.65; }
+  .popup-signature { font-size: 1.15rem; margin-bottom: 16px; }
+  .popup-close-btn { padding: 7px 20px; font-size: 0.65rem; }
+  .jar-container { gap: 30px; }
+  .jar-header { margin-bottom: 30px; }
+  .jar-ambient-glow { width: 180px; height: 180px; }
+
+  /* Envelope / Love Letter */
+  .letter-section { padding-top: 60px; padding-bottom: 70px; }
+  .envelope-wrapper { width: 88vw; min-height: 260px; }
+  .env-back-2d, .env-body-2d { height: 175px; }
+  .env-flap-2d { height: 105px; top: 90px; }
+  .env-wax-seal { width: 42px; height: 42px; bottom: 65px; }
+  .seal-stamp { font-size: 1.15rem; }
+  .env-label { font-size: clamp(1rem, 2.8vw, 1.3rem); }
+  .env-label-heart { font-size: 1.2rem; }
+  .card-paper { padding: 16px 12px; min-height: 230px; }
+  .scrollable-card-body { max-height: 135px; }
+  .card-ltr { font-size: clamp(0.66rem, 1.5vw, 0.78rem); margin: 5px 0; line-height: 1.55; }
+  .card-title { font-size: clamp(0.78rem, 1.8vw, 0.92rem); }
+  .card-subtitle { font-size: clamp(1.2rem, 3vw, 1.5rem); }
+  .card-nav { gap: 10px; padding-top: 8px; }
+  .card-nav button { padding: 5px 11px; font-size: 0.58rem; }
+  .polaroid-frame { width: 105px; height: 128px; }
+  .polaroid-img { width: 90px; height: 90px; }
+  .polaroid-caption { font-size: 0.62rem; }
+  .polaroid-secret-msg { font-size: 0.82rem; }
+  .card-footer-text { font-size: clamp(0.78rem, 1.8vw, 0.95rem); }
+  .card-footer-ilo { font-size: clamp(0.82rem, 2vw, 1rem); }
+  .card-corner-heart { font-size: 1rem; }
+
+  /* Floating hearts — hide some for performance */
+  .float-heart:nth-child(n+6) { display: none; }
+
+  /* Collage */
+  .collage-section { padding: 60px 14px; }
+  .collage-grid { gap: 10px; max-width: 310px; }
+  .collage-polaroid { flex: 0 1 82px; padding: 5px 5px 12px 5px; }
+  .cp-tape { width: 28px; height: 8px; }
+  .collage-card { padding: 22px 16px; border-radius: 16px; }
+  .collage-tags { letter-spacing: 2px; margin: 8px 0 18px; font-size: clamp(0.58rem, 1.8vw, 0.75rem); }
+  .collage-title { letter-spacing: 4px; }
+  .collage-card-heart { font-size: 1rem; }
+  .collage-card-heart.tl { top: 10px; left: 10px; }
+  .collage-card-heart.br { bottom: 10px; right: 10px; }
+
+  /* Playlist / Album */
+  .playlist-section { padding: 60px 14px; }
+  .filmstrip-column { max-width: 280px; }
+  .filmstrip-slider { gap: 10px; }
+  .film-card { padding: 8px 8px 14px 8px; border-radius: 8px; }
+  .film-label { font-size: 0.95rem; margin-top: 6px; }
+  .film-tape { width: 36px; height: 10px; }
+  .playlist-card { padding: 28px 16px 20px 16px; border-radius: 14px; }
+  .notebook-clip { font-size: 1.8rem; top: -12px; }
+  .story-title { font-size: clamp(1rem, 2.6vw, 1.3rem); }
+  .story-desc { font-size: clamp(0.85rem, 2.2vw, 1rem); line-height: 1.7; }
+  .story-divider { margin-bottom: 14px; }
+  .playlist-header { margin-bottom: 30px; }
+  .playlist-ambient-glow { width: 200px; height: 200px; }
+
+  /* Outro */
+  .outro-section { min-height: 70vh; }
+  .of-name { letter-spacing: 5px; }
+  .ob-heart { font-size: 2.6rem; }
+  .ob-string { height: 45px; }
+  .moon { top: 8%; }
+
+  /* Music FAB */
+  .music-fab { width: 44px; height: 44px; bottom: 12px; right: 12px; }
+  .music-fab .music-icon { font-size: 1.2rem; }
+
+  /* Celebration Overlay */
+  .bday-celeb-content {
+    padding: 28px 18px;
+    border-radius: 16px;
+    width: 92%;
+    max-width: 360px;
+  }
+  .celeb-title { letter-spacing: 2px; }
+  .celeb-hearts { font-size: 1.2rem; letter-spacing: 5px; }
+
+  /* Sparkles — reduce count for performance */
+  .mem-sparkle:nth-child(n+5) { display: none; }
+}
+
+/* ── Extra Small Screens (max 360px) ── */
+@media (max-width: 360px) {
+  .section { padding: 40px 10px; }
+
+  /* Hero */
+  .hero-date { letter-spacing: 2px; }
+
+  /* Name */
+  .heart-outline-wrap { padding: 18px; }
+  .name-humaira { letter-spacing: 3px; }
+
+  /* Memory Gallery */
+  .mem-gallery { max-width: 260px; gap: 22px; }
+
+  /* Countdown */
+  .countdown-timer { gap: 3px; }
+  .ct-box { padding: 10px 7px; min-width: 48px; }
+  .ct-value { font-size: clamp(1.3rem, 4.5vw, 1.8rem); }
+  .ct-label { font-size: 0.48rem; letter-spacing: 1.5px; }
+  .ct-sep { font-size: 1rem; }
+
+  /* Envelope */
+  .envelope-wrapper { width: 92vw; min-height: 240px; }
+  .env-back-2d, .env-body-2d { height: 160px; }
+  .env-flap-2d { height: 95px; top: 82px; }
+  .card-paper { padding: 14px 10px; min-height: 210px; }
+  .scrollable-card-body { max-height: 120px; }
+
+  /* Collage */
+  .collage-polaroid { flex: 0 1 68px; padding: 4px 4px 10px 4px; }
+  .collage-grid { max-width: 270px; gap: 8px; }
+
+  /* Filmstrip */
+  .filmstrip-column { max-width: 240px; }
+  .filmstrip-slider { gap: 8px; }
+  .film-card { padding: 6px 6px 12px 6px; }
+
+  /* Jar */
+  .jar-wrapper { width: 120px; height: 165px; }
+  .jar-lid { width: 62px; height: 12px; }
+  .jar-lid::after { width: 50px; }
+  .jar-neck { width: 50px; height: 12px; top: 12px; }
+  .jar-body { top: 24px; height: calc(100% - 24px); }
+  .jar-note-popup { width: min(270px, 90vw); }
+
+  /* Balloon strip */
+  .balloon-memory-strip { gap: 14px; }
+  .mb-top { width: 36px; height: 44px; }
+  .mb-photo { width: 42px; height: 42px; }
+  .mb-ribbon { height: 22px; }
+
+  /* Outro */
+  .of-name { letter-spacing: 4px; }
+}
+
+/* ── Landscape on mobile — prevent sections from being too tall ── */
+@media (max-height: 500px) and (orientation: landscape) {
+  .section { min-height: auto; padding: 40px 20px; }
+  .hero-section { min-height: 100vh; }
+  .outro-section { min-height: 60vh; }
+  .heartbeat-container { width: 120px; height: 120px; }
+  .bangaram-photo-heart { width: 95px; height: 95px; }
+  .bangaram-wrapper { flex-direction: row; gap: 30px; }
+  .envelope-wrapper { min-height: 240px; }
+}
+
+/* ── Ensure no horizontal overflow on any screen ── */
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}

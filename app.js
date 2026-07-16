@@ -17,6 +17,15 @@
   };
   const ALL_PHOTOS = [PHOTOS.favourite, ...PHOTOS.slots, ...PHOTOS.extras];
 
+  // ─── MOBILE DETECTION ───
+  const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+  const isSmallScreen = window.innerWidth <= 480;
+
+  // ─── AUDIO PLAYERS ───
+  const bgMusic = new Audio("Na Roja Nuvve.mp3");
+  bgMusic.loop = true;
+  bgMusic.volume = 0.5;
+
   // ─── DOM SHORTCUTS ───
   const $ = s => document.querySelector(s);
   const $$ = s => document.querySelectorAll(s);
@@ -94,8 +103,12 @@
 
   const COLORS_WARM = ['#e74c5e', '#f8a5c2', '#c0392b', '#fdd0e0', '#fff', '#f5c542', '#ffe7a0'];
 
+  // Adjusted spawn rates for mobile performance
+  const STAR_RATE = isMobile ? 0.05 : 0.12;
+  const HEART_RATE = isMobile ? 0.015 : 0.04;
+
   function spawnAmbient() {
-    if (Math.random() < 0.12) {
+    if (Math.random() < STAR_RATE) {
       particles.push(new Particle({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
@@ -106,7 +119,7 @@
         decay: 0.0005 + Math.random() * 0.001,
       }));
     }
-    if (Math.random() < 0.04) {
+    if (Math.random() < HEART_RATE) {
       particles.push(new Particle({
         size: Math.random() * 5 + 2,
         color: COLORS_WARM[Math.floor(Math.random() * 4)],
@@ -152,9 +165,11 @@
     setTimeout(() => balloon.remove(), dur * 1000);
   }
 
-  // Spawn balloons continuously
-  setInterval(createHeroBalloon, 1200);
-  for (let i = 0; i < 8; i++) setTimeout(createHeroBalloon, i * 300);
+  // Spawn balloons continuously (less frequent on mobile for perf)
+  const BALLOON_INTERVAL = isMobile ? 2200 : 1200;
+  const INITIAL_BALLOONS = isMobile ? 4 : 8;
+  setInterval(createHeroBalloon, BALLOON_INTERVAL);
+  for (let i = 0; i < INITIAL_BALLOONS; i++) setTimeout(createHeroBalloon, i * 400);
 
   // ─── SCROLL REVEAL ───
   const revealElements = $$('.reveal, .reveal-left, .reveal-right');
@@ -190,22 +205,24 @@
   window.addEventListener('scroll', checkReveal, { passive: true });
   checkReveal(); // initial check
 
-  // ─── MEMORY CARD TILT INTERACTION ───
-  $$('.mem-card[data-tilt]').forEach(card => {
-    const inner = card.querySelector('.mem-card-inner');
-    if (!inner) return;
+  // ─── MEMORY CARD TILT INTERACTION (desktop only) ───
+  if (!isMobile) {
+    $$('.mem-card[data-tilt]').forEach(card => {
+      const inner = card.querySelector('.mem-card-inner');
+      if (!inner) return;
 
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      inner.style.transform = `translateY(-8px) rotateY(${x * 6}deg) rotateX(${y * -6}deg)`;
-    });
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        inner.style.transform = `translateY(-8px) rotateY(${x * 6}deg) rotateX(${y * -6}deg)`;
+      });
 
-    card.addEventListener('mouseleave', () => {
-      inner.style.transform = '';
+      card.addEventListener('mouseleave', () => {
+        inner.style.transform = '';
+      });
     });
-  });
+  }
 
   // ─── BUILD MEMORY WALL BALLOONS ───
   function buildMemoryWall() {
@@ -255,62 +272,38 @@
   }
   buildCollage();
 
-  // ─── AMBIENT MUSIC (Web Audio Synth) ───
-  let audioCtx = null;
+  // ─── AMBIENT MUSIC (Background Audio Autoplay) ───
   let musicPlaying = false;
-  let chordIdx = 0;
-  let musicInterval = null;
 
-  const CHORDS = [
-    [261.63, 329.63, 392.00],
-    [293.66, 369.99, 440.00],
-    [246.94, 311.13, 369.99],
-    [220.00, 277.18, 329.63],
-    [196.00, 246.94, 293.66],
-    [174.61, 220.00, 261.63],
-    [196.00, 246.94, 293.66],
-    [261.63, 329.63, 392.00],
-  ];
+  function startAutoplay() {
+    const tryPlay = () => {
+      bgMusic.play()
+        .then(() => {
+          musicPlaying = true;
+          removeListeners();
+        })
+        .catch(err => {
+          console.log("Autoplay check: Waiting for real user gesture (click/tap/press)...", err);
+        });
+    };
 
-  function playChord() {
-    if (!audioCtx) return;
-    const now = audioCtx.currentTime;
-    const gain = audioCtx.createGain();
-    gain.gain.setValueAtTime(0.025, now);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 4);
-    gain.connect(audioCtx.destination);
+    const removeListeners = () => {
+      window.removeEventListener('click', tryPlay);
+      window.removeEventListener('touchstart', tryPlay);
+      window.removeEventListener('keydown', tryPlay);
+      window.removeEventListener('mousedown', tryPlay);
+    };
 
-    CHORDS[chordIdx % CHORDS.length].forEach(freq => {
-      const osc = audioCtx.createOscillator();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, now);
-      osc.connect(gain);
-      osc.start(now);
-      osc.stop(now + 4);
-    });
-    chordIdx++;
+    // Try immediately
+    tryPlay();
+
+    // Set up robust gesture listeners (note: scroll/wheel are not valid play gestures in Chrome)
+    window.addEventListener('click', tryPlay);
+    window.addEventListener('touchstart', tryPlay, { passive: true });
+    window.addEventListener('keydown', tryPlay, { passive: true });
+    window.addEventListener('mousedown', tryPlay, { passive: true });
   }
-
-  const musicBtn = $('#music-toggle');
-  musicBtn.addEventListener('click', () => {
-    if (!audioCtx) {
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    }
-
-    if (musicPlaying) {
-      clearInterval(musicInterval);
-      musicInterval = null;
-      musicPlaying = false;
-      musicBtn.classList.remove('playing');
-      musicBtn.classList.add('muted');
-    } else {
-      playChord();
-      musicInterval = setInterval(playChord, 3500);
-      musicPlaying = true;
-      musicBtn.classList.add('playing');
-      musicBtn.classList.remove('muted');
-    }
-  });
+  startAutoplay();
 
   // ─── BIRTHDAY COUNTDOWN TIMER ───
   function startCountdown() {
@@ -395,7 +388,8 @@
     }
   }
   function triggerBdayConfetti(count) {
-    count = count || 80;
+    count = count || (isMobile ? 40 : 80);
+    if (isMobile) count = Math.min(count, 50);
     for (let i = 0; i < count; i++) {
       particles.push(new Particle({
         x: canvas.width * (0.2 + Math.random() * 0.6),
@@ -806,28 +800,30 @@
 
     let isEnvelopeOpen = false;
 
-    // Parallax Tilt Effect on Closed Envelope
-    function handleTilt(e) {
-      if (isEnvelopeOpen) return;
-      const rect = wrapper.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5; // range -0.5 to 0.5
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
+    // Parallax Tilt Effect on Closed Envelope (desktop only)
+    if (!isMobile) {
+      function handleTilt(e) {
+        if (isEnvelopeOpen) return;
+        const rect = wrapper.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        
+        wrapper.style.transform = `rotateX(${y * -15}deg) rotateY(${x * 15}deg)`;
+        wrapper.style.transition = 'transform 0.1s ease';
+      }
       
-      wrapper.style.transform = `rotateX(${y * -15}deg) rotateY(${x * 15}deg)`;
-      wrapper.style.transition = 'transform 0.1s ease';
+      function resetTilt() {
+        if (isEnvelopeOpen) return;
+        wrapper.style.transform = 'rotateX(0deg) rotateY(0deg)';
+        wrapper.style.transition = 'transform 0.5s ease';
+      }
+      
+      wrapper.addEventListener('mousemove', handleTilt);
+      wrapper.addEventListener('mouseleave', resetTilt);
     }
-    
-    function resetTilt() {
-      if (isEnvelopeOpen) return;
-      wrapper.style.transform = 'rotateX(0deg) rotateY(0deg)';
-      wrapper.style.transition = 'transform 0.5s ease';
-    }
-    
-    wrapper.addEventListener('mousemove', handleTilt);
-    wrapper.addEventListener('mouseleave', resetTilt);
 
     // Wax Seal Click -> Crack open
-    seal.addEventListener('click', () => {
+    function openEnvelope() {
       if (isEnvelopeOpen) return;
       isEnvelopeOpen = true;
       
@@ -883,7 +879,25 @@
           }
         }, 1000);
       }, 600);
-    });
+    }
+
+    // Bind wax seal with both click and touch
+    seal.addEventListener('click', openEnvelope);
+    seal.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      openEnvelope();
+    }, { passive: false });
+
+    // Also allow tapping the envelope body to open on mobile
+    if (isMobile) {
+      const envBody = document.getElementById('env-body-2d');
+      if (envBody) {
+        envBody.addEventListener('touchstart', (e) => {
+          e.preventDefault();
+          openEnvelope();
+        }, { passive: false });
+      }
+    }
 
     // Page turn navigation
     const pages = letterCard.querySelectorAll('.card-page-content');
@@ -969,6 +983,11 @@
     // Touch support for flip polaroid (mobile devices without hover)
     const polaroidFrame = document.getElementById('polaroid-frame');
     if (polaroidFrame) {
+      // Change caption text for touch devices
+      if (isMobile) {
+        const captionEl = polaroidFrame.querySelector('.polaroid-caption');
+        if (captionEl) captionEl.textContent = 'Tap to Flip 🥹';
+      }
       polaroidFrame.addEventListener('click', (e) => {
         e.stopPropagation(); // prevent closing letter
         polaroidFrame.classList.toggle('manual-flipped');
@@ -1033,6 +1052,11 @@
       void jar.offsetWidth; // force reflow
       jar.classList.add('shake');
 
+      // Pause the background song if it is currently playing
+      if (musicPlaying) {
+        bgMusic.pause();
+      }
+
       // 2. Play the uploaded voice note!
       voiceAudio.currentTime = 0; // Restart from the beginning on each click
       voiceAudio.play().catch(err => {
@@ -1076,6 +1100,18 @@
       popup.classList.remove('active');
       // Pause the voice note when they put the card back
       voiceAudio.pause();
+      // Resume background music if it was active
+      if (musicPlaying) {
+        bgMusic.play().catch(err => console.log("Failed to resume background music:", err));
+      }
+    });
+
+    // Also resume background music if the voice note ends naturally
+    voiceAudio.addEventListener('ended', () => {
+      popup.classList.remove('active');
+      if (musicPlaying) {
+        bgMusic.play().catch(err => console.log("Failed to resume background music:", err));
+      }
     });
   }
   initMessageJar();
